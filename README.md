@@ -1,1 +1,1 @@
-# T01_computer_vision
+# Assignments solutions
