@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowTitle"><string>Background change in ROI</string></property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="mainLayout">
+    <item>
+     <layout class="QHBoxLayout" name="controlsLayout">
+      <item><widget class="QPushButton" name="btnLoad"><property name="text"><string>Load image</string></property></widget></item>
+      <item><widget class="QPushButton" name="btnColor"><property name="text"><string>Choose background color</string></property></widget></item>
+      <item><widget class="QLabel" name="labelColor"><property name="minimumSize"><size><width>30</width><height>20</height></size></property></widget></item>
+      <item><widget class="QLabel" name="labelThresholdText"><property name="text"><string>Threshold:</string></property></widget></item>
+      <item><widget class="QSlider" name="sliderThreshold">
+        <property name="maximum"><number>255</number></property>
+        <property name="value"><number>200</number></property>
+        <property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
+      <item><widget class="QLabel" name="labelThreshold"><property name="minimumSize"><size><width>30</width><height>0</height></size></property><property name="text"><string>200</string></property></widget></item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="imagesLayout">
+      <item row="0" column="0"><widget class="QLabel" name="titleOriginal"><property name="text"><string>Original (drag with the mouse to select the ROI)</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+      <item row="0" column="1"><widget class="QLabel" name="titleMask"><property name="text"><string>Mask</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+      <item row="1" column="0"><widget class="QLabel" name="labelOriginal"><property name="minimumSize"><size><width>480</width><height>270</height></size></property><property name="maximumSize"><size><width>480</width><height>270</height></size></property><property name="frameShape"><enum>QFrame::Box</enum></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+      <item row="1" column="1"><widget class="QLabel" name="labelMask"><property name="minimumSize"><size><width>480</width><height>270</height></size></property><property name="maximumSize"><size><width>480</width><height>270</height></size></property><property name="frameShape"><enum>QFrame::Box</enum></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+      <item row="2" column="0"><widget class="QLabel" name="titleRoiResult"><property name="text"><string>ROI result</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+      <item row="2" column="1"><widget class="QLabel" name="titleFullResult"><property name="text"><string>Full image result</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+      <item row="3" column="0"><widget class="QLabel" name="labelRoiResult"><property name="minimumSize"><size><width>480</width><height>270</height></size></property><property name="maximumSize"><size><width>480</width><height>270</height></size></property><property name="frameShape"><enum>QFrame::Box</enum></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+      <item row="3" column="1"><widget class="QLabel" name="labelFullResult"><property name="minimumSize"><size><width>480</width><height>270</height></size></property><property name="maximumSize"><size><width>480</width><height>270</height></size></property><property name="frameShape"><enum>QFrame::Box</enum></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+</ui>
