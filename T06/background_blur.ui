@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>1360</width><height>720</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>T06 - Webcam background blur</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="layoutMain">
+    <property name="spacing"><number>16</number></property>
+    <property name="leftMargin"><number>16</number></property>
+    <property name="topMargin"><number>16</number></property>
+    <property name="rightMargin"><number>16</number></property>
+    <property name="bottomMargin"><number>16</number></property>
+
+    <!-- ======================= left: controls ======================= -->
+    <item>
+     <layout class="QVBoxLayout" name="layoutControls">
+      <property name="spacing"><number>10</number></property>
+      <item>
+       <widget class="QGroupBox" name="groupDetection">
+        <property name="title"><string>1. Find the person (mask)</string></property>
+        <property name="minimumSize"><size><width>270</width><height>0</height></size></property>
+        <property name="maximumSize"><size><width>270</width><height>16777215</height></size></property>
+        <layout class="QVBoxLayout" name="layoutDetection">
+         <property name="spacing"><number>6</number></property>
+         <property name="leftMargin"><number>10</number></property>
+         <property name="topMargin"><number>10</number></property>
+         <property name="rightMargin"><number>10</number></property>
+         <property name="bottomMargin"><number>10</number></property>
+         <item>
+          <widget class="QLabel" name="labelMethodTitle">
+           <property name="text"><string>Method:</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboMethod">
+           <property name="toolTip"><string>GrabCut: separates you from the background inside the green box.
+Background difference: compares each frame with a saved empty background.</string></property>
+           <item><property name="text"><string>GrabCut in ROI</string></property></item>
+           <item><property name="text"><string>Background difference</string></property></item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnCapture">
+           <property name="toolTip"><string>Step out of the camera view, then click. Needed for "Background difference".</string></property>
+           <property name="text"><string>Capture empty background</string></property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="layoutThresholdBlock">
+           <property name="spacing"><number>2</number></property>
+           <item>
+            <layout class="QHBoxLayout" name="layoutThreshold">
+             <item>
+              <widget class="QLabel" name="labelThresholdTitle">
+               <property name="text"><string>Difference threshold:</string></property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelThreshold">
+               <property name="text"><string>30</string></property>
+               <property name="alignment"><set>Qt::AlignRight|Qt::AlignVCenter</set></property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelThresholdNote">
+             <property name="styleSheet"><string>color: #666;</string></property>
+             <property name="wordWrap"><bool>true</bool></property>
+             <property name="text"><string>(for background difference only)</string></property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="sliderThreshold">
+             <property name="toolTip"><string>How much a pixel must change from the saved background to count as you.
+  Lower = more sensitive, higher = less noise.</string></property>
+             <property name="minimum"><number>5</number></property>
+             <property name="maximum"><number>100</number></property>
+             <property name="value"><number>30</number></property>
+             <property name="orientation"><enum>Qt::Horizontal</enum></property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupFilter">
+        <property name="title"><string>2. Background filter</string></property>
+        <property name="minimumSize"><size><width>270</width><height>0</height></size></property>
+        <property name="maximumSize"><size><width>270</width><height>16777215</height></size></property>
+        <layout class="QVBoxLayout" name="layoutFilter">
+         <property name="spacing"><number>6</number></property>
+         <property name="leftMargin"><number>10</number></property>
+         <property name="topMargin"><number>10</number></property>
+         <property name="rightMargin"><number>10</number></property>
+         <property name="bottomMargin"><number>10</number></property>
+         <item>
+          <widget class="QLabel" name="labelFilterTitle">
+           <property name="text"><string>Filter type:</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboFilter">
+           <property name="toolTip"><string>Gaussian: smooth, natural blur.
+Blur (box): plain average, slightly blocky.
+Median: painted look, removes noise.
+Bilateral: cartoon look, keeps edges.</string></property>
+           <item><property name="text"><string>Gaussian</string></property></item>
+           <item><property name="text"><string>Blur (box)</string></property></item>
+           <item><property name="text"><string>Median</string></property></item>
+           <item><property name="text"><string>Bilateral</string></property></item>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="layoutKernel">
+           <item>
+            <widget class="QLabel" name="labelKernelTitle">
+             <property name="text"><string>Kernel size (strength):</string></property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelKernel">
+             <property name="text"><string>51</string></property>
+             <property name="alignment"><set>Qt::AlignRight|Qt::AlignVCenter</set></property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QSlider" name="sliderKernel">
+           <property name="toolTip"><string>Size of the neighbourhood (k x k pixels) averaged for each pixel.
+Bigger = stronger blur. Not used by Bilateral.</string></property>
+           <property name="minimum"><number>3</number></property>
+           <property name="maximum"><number>99</number></property>
+           <property name="singleStep"><number>2</number></property>
+           <property name="value"><number>51</number></property>
+           <property name="orientation"><enum>Qt::Horizontal</enum></property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnSave">
+        <property name="maximumSize"><size><width>270</width><height>16777215</height></size></property>
+        <property name="text"><string>Save result frame</string></property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="spacerControls">
+        <property name="orientation"><enum>Qt::Vertical</enum></property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+
+    <!-- ======================= right: images ======================= -->
+    <item>
+     <layout class="QGridLayout" name="layoutImages" rowstretch="0,0,0,1">
+      <property name="horizontalSpacing"><number>16</number></property>
+      <property name="verticalSpacing"><number>6</number></property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelCameraTitle">
+        <property name="text"><string>&lt;b&gt;Camera&lt;/b&gt;</string></property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="labelMaskTitle">
+        <property name="text"><string>&lt;b&gt;Mask&lt;/b&gt;</string></property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="labelResultTitle">
+        <property name="text"><string>&lt;b&gt;Result&lt;/b&gt;</string></property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelCamera">
+        <property name="minimumSize"><size><width>400</width><height>300</height></size></property>
+        <property name="maximumSize"><size><width>400</width><height>300</height></size></property>
+        <property name="styleSheet"><string>background: #d0d0d0;</string></property>
+        <property name="alignment"><set>Qt::AlignCenter</set></property>
+       </widget>
+      </item>
+      <item row="1" column="1" alignment="Qt::AlignTop">
+       <layout class="QVBoxLayout" name="layoutMaskColumn">
+        <property name="spacing"><number>6</number></property>
+        <item>
+           <widget class="QLabel" name="labelMask">
+            <property name="minimumSize"><size><width>200</width><height>150</height></size></property>
+            <property name="maximumSize"><size><width>200</width><height>150</height></size></property>
+            <property name="styleSheet"><string>background: #d0d0d0;</string></property>
+            <property name="alignment"><set>Qt::AlignCenter</set></property>
+           </widget>
+        </item>
+        <item>
+           <widget class="QLabel" name="labelMaskCaption">
+            <property name="styleSheet"><string>color: #666;</string></property>
+            <property name="wordWrap"><bool>true</bool></property>
+            <property name="alignment"><set>Qt::AlignLeft|Qt::AlignTop</set></property>
+            <property name="text"><string>White = you</string></property>
+           </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="labelResult">
+        <property name="minimumSize"><size><width>400</width><height>300</height></size></property>
+        <property name="maximumSize"><size><width>400</width><height>300</height></size></property>
+        <property name="styleSheet"><string>background: #d0d0d0;</string></property>
+        <property name="alignment"><set>Qt::AlignCenter</set></property>
+       </widget>
+      </item>
+      <item row="2" column="0" alignment="Qt::AlignTop">
+       <widget class="QLabel" name="labelStatus">
+        <property name="minimumSize"><size><width>400</width><height>260</height></size></property>
+        <property name="maximumSize"><size><width>400</width><height>16777215</height></size></property>
+        <property name="textFormat"><enum>Qt::RichText</enum></property>
+        <property name="styleSheet"><string>color: #666;</string></property>
+        <property name="wordWrap"><bool>true</bool></property>
+        <property name="alignment"><set>Qt::AlignLeft|Qt::AlignTop</set></property>
+        <property name="text"><string>Starting...</string></property>
+       </widget>
+      </item>
+      <item row="2" column="2" alignment="Qt::AlignTop">
+       <widget class="QLabel" name="labelResultCaption">
+        <property name="styleSheet"><string>color: #666;</string></property>
+        <property name="wordWrap"><bool>true</bool></property>
+        <property name="alignment"><set>Qt::AlignLeft|Qt::AlignTop</set></property>
+        <property name="text"><string>The filter is applied on background only</string></property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="3">
+       <spacer name="spacerImages">
+        <property name="orientation"><enum>Qt::Vertical</enum></property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
